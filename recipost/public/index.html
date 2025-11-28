@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipost - Share Your Recipes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🍳 Recipost</h1>
+            <p>Create, Edit, Share delicious recipes with the community</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <button id="showFormBtn" class="nav-btn active">➕ Add a Recipe</button>
+            <button id="showRecipesBtn" class="nav-btn">📖 View Recipes</button>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search Recipe Library">
+                <button id="searchBtn">🔍</button>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <div id="notification" class="notification hidden"></div>
+        <section id="formSection" class="section">
+            <h2 id="formTitle">Share Your Recipe</h2>
+            <form id="recipeForm">
+                <input type="hidden" id="recipeId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="title">Recipe Name</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Your Name </label>
+                        <input type="text" id="author" name="author" required >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description </label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ingredients">Ingredients <span class="hint"></span></label>
+                    <textarea id="ingredients" name="ingredients" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="instructions">Instructions <span class="hint">(one step per line)</span></label>
+                    <textarea id="instructions" name="instructions" required rows="8"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prepTime">Prep Time</label>
+                        <input type="number" id="prepTime" name="prepTime" required >
+                    </div>
+                    <div class="form-group">
+                        <label for="cookTime">Cook Time</label>
+                        <input type="number" id="cookTime" name="cookTime" required >
+                    </div>
+                    <div class="form-group">
+                        <label for="servings">Servings</label>
+                        <input type="number" id="servings" name="servings" required >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="">Choose a category</option>
+                        <option value="Breakfast">🍳 Breakfast</option>
+                        <option value="Lunch">🥗 Lunch</option>
+                        <option value="Dinner">🍽️ Dinner</option>
+                        <option value="Dessert">🍰 Dessert</option>
+                        <option value="Snack">🍿 Snack</option>
+                        <option value="Appetizer">🥟 Appetizer</option>
+                        <option value="Beverage">☕ Beverage</option>
+                        <option value="Other">📋 Other</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <span id="submitBtnText">Post Recipe</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </section>
+        <section id="recipesSection" class="section hidden">
+            <div class="section-header">
+                <h2>All Recipes</h2>
+                <div class="filter-group">
+                    <label for="categoryFilter">Filter:</label>
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Breakfast">🍳 Breakfast</option>
+                        <option value="Lunch">🥗 Lunch</option>
+                        <option value="Dinner">🍽️ Dinner</option>
+                        <option value="Dessert">🍰 Dessert</option>
+                        <option value="Snack">🍿 Snack</option>
+                        <option value="Appetizer">🥟 Appetizer</option>
+                        <option value="Beverage">☕ Beverage</option>
+                        <option value="Other">📋 Other</option>
+                    </select>
+                </div>
+            </div>
+            <div id="recipesList" class="recipes-grid">
+                <p class="loading">Loading recipes...</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Recipost | CIS 435 Project</p>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
