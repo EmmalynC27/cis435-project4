@@ -1,18 +1,63 @@
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import { connectToMongo } from './src/db.js';
+import recipeRoutes from './src/routes/recipes.js';
+/*
+ * Note: Old server code
 // Simple Node.js Server
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const mongoose = require('mongoose');
-
+//const mongoose = require('mongoose');
 const PORT = 3000;
+*/
+
+const app = express();
+app.use(cors());
+app.use(express.static('public'));
+
+// API Routes
+app.use('/api', recipeRoutes);
+
+// Server health check
+app.get('/health', (req, res) => res.json({ ok: true }));
+
+// Serve static files
+// TODO: Fix file paths (__dirname currently causes reference error in browser)
+app.get('/', (req, res) => res.sendFile(__dirname + './index.html'));
+
+// Database and Server Variables
+const port = process.env.PORT;
+const url = process.env.MONGO_URL;
+const dbName = process.env.MONGO_DB;
+
+// Connect to MongoDB Atlas and start server
+connectToMongo(url, dbName)
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`🚀 Server running on http://localhost:${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error('❌ Failed to connect to MongoDB:', err.message);
+    process.exit(1);
+  });
+
 /*
-// MongoDB connection
 mongoose.connect('mongodb://localhost:3001/recipost') //Prev Port: 27017
     .then(() => console.log('✅ MongoDB connected'))
     .catch(err => console.log('❌ MongoDB error:', err.message));
 
 const Recipe = require('./models/Recipe');
 */
+
+/* TODO: The API routes still need to be properly implemented using the "express"
+ * library.
+ * Currently there are placeholders of these routes in "recipes.js"
+*/
+
+/*
 // Create server
 const server = http.createServer(async (req, res) => {
     const url = req.url;
@@ -38,7 +83,7 @@ const server = http.createServer(async (req, res) => {
             res.end(JSON.stringify({ message: err.message }));
         }
     }
-    
+
     // API: Create recipe
     else if (url === '/api/recipes' && method === 'POST') {
         let body = '';
@@ -120,12 +165,13 @@ const server = http.createServer(async (req, res) => {
             res.end(JSON.stringify({ message: err.message }));
         }
     }
-    
+
     else {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Not Found');
     }
 });
+*/
 
 // Helper function to serve files
 function serveFile(filePath, contentType, res) {
@@ -140,7 +186,9 @@ function serveFile(filePath, contentType, res) {
     });
 }
 
+/*
 // Start server
 server.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
+*/

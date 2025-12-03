@@ -1,3 +1,4 @@
+// Connect to MongoDB
 import mongoose from 'mongoose'
 
 export async function connectToMongo(url, dbName) {
@@ -6,7 +7,7 @@ export async function connectToMongo(url, dbName) {
 
     await mongoose.connect(url, {dbName});
     mongoose.connection.on('connected', () => {
-        console.group(`✅ Mongo connected to ${dbName}`);
+        console.log(`✅ Mongo connected to ${dbName}`);
     });
 
     mongoose.connection.on('error', (err) => {

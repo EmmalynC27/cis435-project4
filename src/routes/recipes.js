@@ -3,8 +3,8 @@ import { Recipe } from '../models/Recipe.js';
 
 const router = Router();
 
-// Get all recipes
-router.get('/', async (req, res) => {
+// Get all recipes (GET /api/recipes)
+router.get('/recipes', async (req, res) => {
     try {
         const recipes = await Recipe.find();
         res.json(recipes);
@@ -13,8 +13,8 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get a single recipe by ID
-router.get('/:id', async (req, res) => {
+// Get a single recipe by ID (GET /api/recipes/:id)
+router.get('/recipes/:id', async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.id);
         if (!recipe) return res.status(404).json({ error: 'Recipe not found' });
@@ -24,8 +24,8 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Create a new recipe
-router.post('/', async (req, res) => {
+// Create a new recipe (POST /api/recipes)
+router.post('/recipes', async (req, res) => {
     try {
         const recipe = new Recipe(req.body);
         await recipe.save();
@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a recipe by ID
-router.put('/:id', async (req, res) => {
+router.put('/recipes/:id', async (req, res) => {
     try {
         const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!recipe) return res.status(404).json({ error: 'Recipe not found' });
@@ -47,7 +47,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete a recipe by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/recipes/:id', async (req, res) => {
     try {
         const recipe = await Recipe.findByIdAndDelete(req.params.id);
         if (!recipe) return res.status(404).json({ error: 'Recipe not found' });
