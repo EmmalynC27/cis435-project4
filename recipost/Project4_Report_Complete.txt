@@ -1,0 +1,373 @@
+CIS 435: Web Technology
+Dr. John Baugh
+Project 4
+Emmalyn Coon & Kenshin Yang
+December 5th, 2025
+
+
+RECIPOST - Recipe Community Posting Board
+Full-Stack Web Application
+
+
+Table of Contents
+Introduction………………………………………………………………………………………..2
+Design Considerations………………………...………………………………..…………………3
+User Interface Design…………………...……………………………………………………….4
+System Components Summary………………...………………………………………………..5
+Roles & Responsibilities…………………………………………………………………………6
+Conclusion………………………………………………………………………………………..7
+
+
+Introduction
+
+Recipost is a full-stack web application designed to create an online community where users can share, discover, and manage recipes. The platform addresses the common challenge of organizing and sharing recipes in a digital format, providing an intuitive interface for home cooks to contribute their favorite dishes and discover new culinary creations from other community members.
+
+The application was built as a comprehensive demonstration of full-stack web development principles, incorporating modern web technologies including HTML5, CSS3, vanilla JavaScript for the frontend, Node.js for the backend server, and MongoDB for data persistence. The project requirements specified creating a substantial, creative, and functional application with proper user input validation, database integration, and security measures.
+
+Key Features:
+• Recipe Creation & Management: Users can post new recipes with detailed information including ingredients, instructions, prep time, cook time, servings, and category classification
+• Full CRUD Operations: Complete Create, Read, Update, and Delete functionality for recipe management
+• Search & Filter: Users can search recipes by keywords or filter by category (Breakfast, Lunch, Dinner, Dessert, etc.)
+• Data Validation: Both client-side and server-side validation ensure data integrity
+• Persistent Storage: MongoDB database ensures all recipes are saved between sessions
+• Responsive Design: Mobile-friendly interface that works across different screen sizes
+
+The application follows a clean architecture pattern, separating concerns between presentation (HTML/CSS), business logic (JavaScript), and data persistence (MongoDB), making it maintainable and scalable for future enhancements.
+
+
+Design Considerations
+
+Architecture & Technology Stack
+The application follows a traditional three-tier architecture pattern with clear separation between the presentation layer, application layer, and data layer.
+
+Frontend Technology Choices:
+We chose vanilla JavaScript over frameworks like React to maintain simplicity and demonstrate fundamental web development skills. This decision allowed us to:
+• Minimize dependencies and reduce application complexity
+• Demonstrate core JavaScript competencies including DOM manipulation, asynchronous programming with async/await, and fetch API usage
+• Create a lightweight application with faster load times
+• Maintain full control over application behavior without framework abstractions
+
+The HTML structure uses semantic elements (header, nav, main, section, footer) for improved accessibility and SEO. CSS is organized with a mobile-first approach, utilizing CSS Grid and Flexbox for responsive layouts.
+
+Backend Architecture:
+Initially, we explored using Express.js but ultimately implemented a pure Node.js HTTP server to:
+• Reduce external dependencies
+• Demonstrate understanding of core Node.js modules (http, fs, path)
+• Maintain project simplicity while meeting all functional requirements
+• Manually handle routing, request parsing, and response formatting
+
+Database Design:
+MongoDB was selected as the database solution for several reasons:
+• Flexible schema that accommodates varying recipe structures
+• Natural JSON format aligns well with JavaScript/Node.js stack
+• Mongoose ODM provides robust schema validation and data modeling
+• NoSQL approach allows for easy modification of data structure during development
+
+Security Considerations:
+• Schema Validation: Mongoose enforces data types, required fields, and constraints at the database level
+• Input Sanitization: All user inputs are trimmed and validated before storage
+• XSS Prevention: HTML escaping functions prevent cross-site scripting attacks
+• Error Handling: Comprehensive try-catch blocks prevent application crashes and information leakage
+
+Scalability & Performance:
+• Indexed database queries ensure fast retrieval as recipe count grows
+• Asynchronous operations prevent blocking during database transactions
+• Static file serving optimized for browser caching
+• Modular code structure allows easy addition of new features
+
+Development Approach:
+We followed an iterative development process, starting with basic HTML structure, then adding styling, followed by client-side JavaScript, and finally backend integration. This approach allowed us to test each layer independently before integration, reducing debugging complexity.
+
+
+User Interface Design
+
+The user interface was designed with simplicity and usability as primary goals. We focused on creating an intuitive experience that requires minimal learning curve for new users.
+
+Layout & Navigation:
+The application features a clean, card-based design with three main sections:
+
+1. Header Section:
+   • Prominent application branding with emoji icon (🍳)
+   • Tagline clearly communicates the application's purpose
+   • Gradient background creates visual interest and professionalism
+
+2. Navigation Bar:
+   • Toggle buttons to switch between "Add Recipe" and "View Recipes" views
+   • Search functionality positioned in the navigation for easy access
+   • Active state indication shows current view to users
+   • Sticky positioning keeps navigation accessible while scrolling
+
+3. Main Content Area:
+   • Recipe Form View: Clean, organized form with logical grouping
+     - Basic information (title, author)
+     - Detailed content (description, ingredients, instructions)
+     - Metadata (prep time, cook time, servings, category)
+     - Clear labels with helpful hints (e.g., "one per line")
+     - Visual hierarchy through spacing and typography
+   
+   • Recipe List View: Grid-based card layout
+     - Responsive grid adjusts from multiple columns to single column on mobile
+     - Each recipe card displays:
+       * Title and category badge
+       * Author attribution
+       * Recipe description
+       * Quick metadata (prep time, cook time, servings)
+       * Expandable ingredients and instructions
+       * Action buttons (Edit, Delete)
+     - Category filter dropdown for easy navigation
+
+Color Scheme:
+• Primary: Green (#4CAF50) - Associated with freshness and cooking
+• Secondary: White backgrounds for content clarity
+• Accent: Gray tones for text and borders
+• Action colors: Yellow for Edit, Red for Delete (intuitive color associations)
+
+Typography:
+• Sans-serif font family (Arial) for maximum readability
+• Clear hierarchy: h1 (2rem) > h2 > h3 > body text
+• Adequate line-height (1.6) for comfortable reading
+
+Interactive Elements:
+• Buttons provide visual feedback on hover (color change, subtle lift effect)
+• Form inputs highlight on focus with border color change
+• Alert messages provide immediate feedback on actions
+• Smooth transitions create polished user experience
+
+Responsive Design:
+• Desktop (>768px): Multi-column grid layout, horizontal navigation
+• Mobile (<768px): Single column layout, stacked navigation
+• Touch-friendly button sizes for mobile users
+• Flexible search box adapts to available space
+
+Accessibility Considerations:
+• Semantic HTML for screen reader compatibility
+• Proper label associations for form inputs
+• Adequate color contrast ratios
+• Keyboard navigation support
+• Required field indicators
+
+
+System Components Summary
+
+The Recipost application consists of four primary components working together to deliver full functionality:
+
+1. Frontend Components (public/ directory)
+
+index.html (138 lines)
+• Semantic HTML5 structure with proper document outline
+• Form elements with built-in HTML5 validation
+• Responsive container structure
+• Template structure for recipe cards
+• Includes proper meta tags for mobile viewport
+
+styles.css (245+ lines)
+• CSS reset for consistent cross-browser rendering
+• Flexbox and Grid layouts for responsive design
+• Component-based styling approach
+• Media queries for mobile responsiveness
+• Utility classes for common patterns
+
+main.js (134 lines)
+• Event handling for user interactions
+• Asynchronous API communication using fetch()
+• Dynamic DOM manipulation for recipe display
+• Form validation and data formatting
+• Error handling and user feedback
+• Functions include:
+  - loadRecipes(): Fetches all recipes from API
+  - displayRecipes(): Renders recipe cards dynamically
+  - editRecipe(): Loads recipe data into form for editing
+  - deleteRecipe(): Removes recipe with confirmation
+  - Search and filter functionality
+
+2. Backend Components
+
+server.js (142 lines)
+• HTTP server using Node.js core modules
+• RESTful API endpoint routing
+• Static file serving for frontend assets
+• Request/response handling with proper headers
+• Error handling middleware
+• API Endpoints:
+  - GET /api/recipes - Retrieve all recipes
+  - GET /api/recipes/:id - Retrieve single recipe
+  - POST /api/recipes - Create new recipe
+  - PUT /api/recipes/:id - Update existing recipe
+  - DELETE /api/recipes/:id - Delete recipe
+• Implements proper HTTP status codes (200, 201, 400, 404, 500)
+
+3. Database Layer
+
+models/Recipe.js (48 lines)
+• Mongoose schema definition with validation rules
+• Data types: String, Number, Array
+• Required field enforcement
+• Default values for optional fields
+• Timestamp tracking (createdAt, updatedAt)
+• Schema structure:
+  ```javascript
+  {
+    title: String (required)
+    author: String (required)
+    description: String (required)
+    ingredients: Array of Strings
+    instructions: Array of Strings
+    prepTime: Number (minutes)
+    cookTime: Number (minutes)
+    servings: Number
+    category: String (enum)
+    timestamps: true
+  }
+  ```
+
+4. Configuration Files
+
+package.json
+• Project metadata and dependencies
+• Defines mongoose for MongoDB connectivity
+• Scripts for starting the application
+• Version control information
+
+Data Flow:
+1. User interacts with frontend (HTML form)
+2. JavaScript captures and validates user input
+3. Fetch API sends HTTP request to backend server
+4. Node.js server receives and parses request
+5. Mongoose model validates data against schema
+6. MongoDB stores/retrieves/updates data
+7. Server sends JSON response back to client
+8. JavaScript updates DOM to reflect changes
+9. User sees updated interface
+
+UML Activity Diagram - Create Recipe Flow:
+[User fills form] → [Validates input] → [Submits form]
+     ↓
+[JavaScript captures data] → [Formats data object] → [Sends POST request]
+     ↓
+[Server receives request] → [Parses JSON body] → [Creates Recipe model]
+     ↓
+[Mongoose validates data] → [Saves to MongoDB]
+     ↓
+[MongoDB confirms save] → [Returns saved document]
+     ↓
+[Server sends response] → [Client receives response]
+     ↓
+[Updates UI] → [Shows success message] → [Switches to recipe list view]
+
+Error Handling:
+• Each layer includes try-catch blocks
+• Validation errors return specific messages
+• Network errors caught and displayed to user
+• Database errors logged and handled gracefully
+• User receives friendly error messages (not technical details)
+
+
+Roles & Responsibilities
+
+Team Member: Emmalyn Coon
+Primary Responsibilities:
+• Frontend Development
+  - Designed and implemented HTML structure
+  - Created responsive CSS styling
+  - Developed user interface layout and components
+  - Ensured mobile responsiveness
+  - Accessibility considerations
+
+• User Experience Design
+  - Form layout and usability
+  - Color scheme selection
+  - Typography choices
+  - Interactive element design
+
+• Documentation
+  - Report writing and formatting
+  - User tutorial creation with screenshots
+  - README file documentation
+
+Team Member: Kenshin Yang
+Primary Responsibilities:
+• Backend Development
+  - Node.js server implementation
+  - RESTful API design and implementation
+  - HTTP request/response handling
+  - Static file serving configuration
+
+• Database Development
+  - MongoDB setup and configuration
+  - Mongoose schema design and validation
+  - Database connection management
+  - CRUD operation implementation
+
+• Frontend JavaScript
+  - API integration
+  - Asynchronous data handling
+  - DOM manipulation
+  - Client-side validation
+  - Error handling
+
+Shared Responsibilities:
+• Application Architecture: Both team members collaborated on overall application structure and technology choices
+• Testing: Both performed extensive testing of all features across different browsers
+• Debugging: Pair programming approach for complex bug resolution
+• Version Control: Git repository management and code reviews
+• Integration: Worked together to ensure smooth communication between frontend and backend
+• Project Planning: Regular meetings to discuss progress, challenges, and next steps
+
+Development Process:
+We followed an agile-inspired workflow with regular communication and iterative development cycles. Weekly meetings ensured both team members stayed aligned on project goals and progress. We used Git for version control, creating feature branches for major additions and merging after peer review.
+
+Challenges & Collaboration:
+When challenges arose (e.g., MongoDB connection issues, CORS problems, validation errors), we employed pair programming techniques, with one person coding while the other researched solutions. This collaborative approach accelerated problem-solving and knowledge sharing.
+
+
+Conclusion
+
+The Recipost project successfully demonstrates our ability to design, implement, and deploy a full-stack web application that meets all specified requirements. Through this project, we gained valuable hands-on experience with modern web development technologies and best practices.
+
+Technical Skills Developed:
+• Full-Stack Development: Integrated frontend, backend, and database layers into a cohesive application
+• Database Design: Created efficient MongoDB schemas with proper validation and indexing
+• API Development: Implemented RESTful API principles with proper HTTP methods and status codes
+• Asynchronous Programming: Mastered async/await patterns for database operations and API calls
+• Error Handling: Implemented comprehensive error handling across all application layers
+• Security: Applied input validation and sanitization to prevent common vulnerabilities
+• Responsive Design: Created interfaces that function across desktop and mobile devices
+
+Project Management Skills:
+• Team Collaboration: Effective division of responsibilities and regular communication
+• Version Control: Utilized Git for code management and collaboration
+• Documentation: Created comprehensive documentation for developers and users
+• Testing: Performed thorough testing to ensure application reliability
+• Time Management: Completed all deliverables within project timeline
+
+Key Takeaways:
+1. Importance of Planning: Clear architectural decisions early saved debugging time later
+2. Separation of Concerns: Modular code structure made debugging and enhancement easier
+3. User-Centered Design: Simple, intuitive interfaces require less documentation and training
+4. Validation is Critical: Both client and server-side validation prevents data corruption
+5. Error Handling: Comprehensive error handling improves user experience and debugging
+
+Challenges Overcome:
+• MongoDB Connection: Learned to diagnose and resolve database connection issues
+• Asynchronous Operations: Mastered promise handling and async/await syntax
+• CORS Issues: Understood same-origin policy and server configuration
+• Form Validation: Implemented multi-layer validation strategy
+• State Management: Handled client-side state without using frameworks
+
+Future Enhancements:
+Given more time, we would add the following features:
+• User Authentication: Login system with recipe ownership
+• Image Upload: Allow users to add photos to recipes
+• Ratings & Comments: Community engagement features
+• Recipe Collections: Users can save favorite recipes
+• Print-Friendly Format: CSS for recipe printing
+• Advanced Search: Search by ingredients or dietary restrictions
+• Social Sharing: Share recipes on social media platforms
+
+Real-World Applications:
+The skills developed through this project directly apply to professional web development scenarios. Understanding the full stack—from database design through server-side logic to user interface—provides a solid foundation for enterprise application development. The project demonstrates our readiness to contribute to real-world development teams.
+
+Final Thoughts:
+This project reinforced that successful web development requires both technical skills and creative problem-solving. We learned to balance functionality with usability, security with user experience, and complexity with maintainability. The Recipost application stands as a testament to our growth as full-stack developers and our ability to deliver complete, functional web solutions.
+
+Most importantly, we learned that building software is an iterative process. Our first attempts weren't perfect, but through persistent debugging, refactoring, and testing, we created an application we're proud to showcase. This experience has prepared us for the challenges and rewards of professional software development careers.

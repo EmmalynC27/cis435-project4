@@ -7,7 +7,14 @@ export async function connectToMongo(url, dbName) {
 
     try {
         console.log('Attempting to connect to MongoDB...');
-        await mongoose.connect(url, { dbName });
+        console.log('Connection URL (masked):', url.substring(0, 20) + '...');
+        
+        const options = {
+            dbName,
+            serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of default 30s
+        };
+        
+        await mongoose.connect(url, options);
         console.log(`✅ Mongo connected to ${dbName}`);
         
         mongoose.connection.on('error', (err) => {
@@ -19,6 +26,7 @@ export async function connectToMongo(url, dbName) {
         });
     } catch (error) {
         console.error('❌ Failed to connect to MongoDB:', error.message);
+        console.error('Error stack:', error.stack);
         throw error;
     }
 }
