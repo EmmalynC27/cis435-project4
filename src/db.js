@@ -8,19 +8,19 @@ export async function connectToMongo(url, dbName) {
     try {
         console.log('Attempting to connect to MongoDB...');
         console.log('Connection URL (masked):', url.substring(0, 20) + '...');
-        
+
         const options = {
             dbName,
             serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of default 30s
         };
-        
+
         await mongoose.connect(url, options);
         console.log(`✅ Mongo connected to ${dbName}`);
-        
+
         mongoose.connection.on('error', (err) => {
             console.error('❌ Mongo connection error: ', err.message);
         });
-        
+
         mongoose.connection.on('disconnected', () => {
             console.log('⚠️ Mongo disconnected');
         });

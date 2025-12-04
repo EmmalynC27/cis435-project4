@@ -35,7 +35,7 @@ router.post('/recipes', async (req, res) => {
     }
 });
 
-// Update a recipe by ID
+// Update a recipe by ID (PUT /api/recipes/:id)
 router.put('/recipes/:id', async (req, res) => {
     try {
         const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
@@ -46,7 +46,7 @@ router.put('/recipes/:id', async (req, res) => {
     }
 });
 
-// Delete a recipe by ID
+// Delete a recipe by ID (DELETE /api/recipes/:id)
 router.delete('/recipes/:id', async (req, res) => {
     try {
         const recipe = await Recipe.findByIdAndDelete(req.params.id);
