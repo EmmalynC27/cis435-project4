@@ -17,6 +17,7 @@ formBtn.onclick = () => {
     formBtn.classList.add('active');
     recipesBtn.classList.remove('active');
 };
+
 recipesBtn.onclick = () => {
     formSection.classList.add('hidden');
     recipesSection.classList.remove('hidden');
@@ -24,12 +25,14 @@ recipesBtn.onclick = () => {
     recipesBtn.classList.add('active');
     loadRecipes();
 };
+
 cancelBtn.onclick = () => {
     recipeForm.reset();
     editingId = null;
     document.getElementById('formTitle').textContent = 'Share Your Recipe';
     document.getElementById('submitBtnText').textContent = 'Post Recipe';
 };
+
 async function loadRecipes() {
     try {
         const res = await fetch('/api/recipes');
@@ -39,6 +42,7 @@ async function loadRecipes() {
         recipesList.innerHTML = '<p class="error">Error loading recipes</p>';
     }
 }
+
 function displayRecipes(list) {
     if (list.length === 0) {
         recipesList.innerHTML = '<p class="no-recipes">No recipes yet!</p>';
@@ -70,6 +74,31 @@ function displayRecipes(list) {
         </div>
     `).join('');
 }
+
+const searchInput = document.getElementById('searchInput');
+searchInput.oninput = function () {
+    const query = searchInput.value.trim().toLowerCase();
+    const filtered = recipes.filter(r =>
+        r.title.toLowerCase().includes(query) ||
+        r.author.toLowerCase().includes(query) ||
+        r.category.toLowerCase().includes(query) ||
+        r.description.toLowerCase().includes(query) ||
+        r.ingredients.some(i => i.toLowerCase().includes(query)) ||
+        r.instructions.some(i => i.toLowerCase().includes(query))
+    );
+    displayRecipes(filtered);
+};
+
+const categoryFilter = document.getElementById('categoryFilter');
+categoryFilter.onchange = function () {
+    const selected = categoryFilter.value;
+    let filtered = recipes;
+    if (selected !== "") { // "" represents "All Categories"
+        filtered = recipes.filter(r => r.category === selected);
+    }
+    displayRecipes(filtered);
+};
+
 recipeForm.onsubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -86,17 +115,17 @@ recipeForm.onsubmit = async (e) => {
     try {
         const url = editingId ? `/api/recipes/${editingId}` : '/api/recipes';
         const method = editingId ? 'PUT' : 'POST';
-        
+
         console.log('Sending data:', data);
-        
+
         const res = await fetch(url, {
             method: method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
-        
+
         console.log('Response status:', res.status);
-        
+
         if (!res.ok) {
             let errorMsg = 'Save failed';
             try {
@@ -108,10 +137,10 @@ recipeForm.onsubmit = async (e) => {
             }
             throw new Error(errorMsg);
         }
-        
+
         const result = await res.json();
         console.log('Success:', result);
-        
+
         alert(editingId ? 'Updated!' : 'Posted!');
         recipeForm.reset();
         editingId = null;
@@ -121,6 +150,7 @@ recipeForm.onsubmit = async (e) => {
         alert('Error: ' + err.message);
     }
 };
+
 async function editRecipe(id) {
     try {
         const res = await fetch(`/api/recipes/${id}`);
@@ -142,6 +172,7 @@ async function editRecipe(id) {
         alert('Error loading recipe');
     }
 }
+
 async function deleteRecipe(id) {
     if (!confirm('Delete this recipe?')) return;
     try {
@@ -152,3 +183,4 @@ async function deleteRecipe(id) {
         alert('Error deleting');
     }
 }
+

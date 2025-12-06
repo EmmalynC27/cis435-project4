@@ -1,8 +1,12 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+:root {/* CSS Variables for consistent theming (Default Values) */
+    --primary-color: #4CAF50;
+    --secondary-color: #ffd600;
+    --background-color: #ffffff;
 }
 body {
     font-family: Arial, sans-serif;
@@ -16,8 +20,8 @@ body {
     padding: 20px;
 }
 header {
-    background: #4CAF50;
-    color: white;
+    background: var(--primary-color);
+    color: var(--background-color);
     padding: 20px 0;
     text-align: center;
 }
@@ -26,7 +30,7 @@ header h1 {
 }
 
 nav {
-    background: white;
+    background: var(--background-color);
     padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -37,15 +41,15 @@ nav .container {
 }
 .nav-btn {
     padding: 10px 20px;
-    border: 2px solid #4CAF50;
-    background: white;
-    color: #4CAF50;
+    border: 2px solid var(--primary-color);
+    background: var(--background-color);
+    color: var(--primary-color);
     cursor: pointer;
     border-radius: 5px;
 }
 .nav-btn.active {
-    background: #4CAF50;
-    color: white;
+    background: var(--primary-color);
+    color: var(--background-color);
 }
 .search-box {
     display: flex;
@@ -60,14 +64,14 @@ nav .container {
 }
 #searchBtn {
     padding: 10px 15px;
-    background: #4CAF50;
-    color: white;
+    background: var(--primary-color);
+    color: var(--background-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 .section {
-    background: white;
+    background: var(--background-color);
     padding: 30px;
     margin: 20px 0;
     border-radius: 8px;
@@ -115,12 +119,12 @@ input, textarea, select {
     font-size: 1rem;
 }
 .btn-primary {
-    background: #4CAF50;
-    color: white;
+    background: var(--primary-color);
+    color: var(--background-color);
 }
 .btn-secondary {
     background: #6c757d;
-    color: white;
+    color: var(--background-color);
 }
 .btn-edit {
     background: #ffc107;
@@ -128,7 +132,7 @@ input, textarea, select {
 }
 .btn-delete {
     background: #dc3545;
-    color: white;
+    color: var(--background-color);
 }
 .form-actions {
     display: flex;
@@ -158,12 +162,12 @@ input, textarea, select {
     background: #fafafa;
 }
 .recipe-header h3 {
-    color: #4CAF50;
+    color: var(--primary-color);
     margin-bottom: 10px;
 }
 .category-badge {
-    background: #4CAF50;
-    color: white;
+    background: var(--primary-color);
+    color: var(--background-color);
     padding: 5px 10px;
     border-radius: 15px;
     font-size: 0.85rem;
@@ -191,7 +195,7 @@ input, textarea, select {
 }
 footer {
     background: #333;
-    color: white;
+    color: var(--background-color);
     text-align: center;
     padding: 20px 0;
     margin-top: 40px;
