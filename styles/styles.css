@@ -5,7 +5,7 @@
 }
 :root {/* CSS Variables for consistent theming (Default Values) */
     --primary-color: #4CAF50;
-    --secondary-color: #ffd600;
+    --secondary-color: #bfffd7;
     --background-color: #ffffff;
 }
 body {
@@ -140,10 +140,14 @@ input, textarea, select {
 .btn-edit {
     background: #ffc107;
     color: black;
+    border: 2px solid #686868;
+    box-shadow: 0 0 0 2px #ffcc42 inset;
 }
 .btn-delete {
     background: #dc3545;
     color: var(--background-color);
+    border: 2px solid #686868;
+    box-shadow: 0 0 0 2px #ff3247 inset;
 }
 .btn, .nav-btn, #searchBtn { /* Button Color Transitions */
     transition: background 0.3s, color 0.3s, border-color 0.3s;
@@ -192,7 +196,8 @@ input, textarea, select {
     gap: 20px;
 }
 .recipe-card {
-    border: 1px solid #ddd;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 0 2px var(--secondary-color) inset;
     border-radius: 8px;
     padding: 20px;
     background: #fafafa;
@@ -229,7 +234,6 @@ input, textarea, select {
     gap: 10px;
     margin-top: 15px;
 }
-
 /* Footer */
 footer {
     background: #333;

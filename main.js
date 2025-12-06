@@ -16,6 +16,7 @@ formBtn.onclick = () => {
     recipesSection.classList.add('hidden');
     formBtn.classList.add('active');
     recipesBtn.classList.remove('active');
+    formSection.scrollIntoView({ behavior: 'smooth' });
 };
 
 recipesBtn.onclick = () => {
