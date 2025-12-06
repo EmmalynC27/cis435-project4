@@ -24,6 +24,7 @@ recipesBtn.onclick = () => {
     formBtn.classList.remove('active');
     recipesBtn.classList.add('active');
     loadRecipes();
+    recipesSection.scrollIntoView({ behavior: 'smooth' });
 };
 
 cancelBtn.onclick = () => {
@@ -97,6 +98,15 @@ searchInput.oninput = function () {
         r.instructions.some(i => i.toLowerCase().includes(query))
     );
     displayRecipes(filtered);
+};
+
+const searchBtn = document.getElementById('searchBtn');
+searchBtn.onclick = function () {
+    recipesSection.classList.remove('hidden');
+    formSection.classList.add('hidden');
+    formBtn.classList.remove('active');
+    recipesBtn.classList.add('active');
+    recipesSection.scrollIntoView({ behavior: 'smooth' });
 };
 
 const categoryFilter = document.getElementById('categoryFilter');

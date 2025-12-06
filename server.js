@@ -12,9 +12,6 @@ app.use(express.static('.')); // Serve static files from root directory
 // API Routes
 app.use('/api', recipeRoutes);
 
-// Test Server health check
-app.get('/health', (req, res) => res.json({ ok: true }));
-
 // Database and Server Variables
 const port = process.env.PORT;
 const url = process.env.MONGO_URL;
