@@ -145,6 +145,29 @@ input, textarea, select {
     background: #dc3545;
     color: var(--background-color);
 }
+.btn, .nav-btn, #searchBtn { /* Button Color Transitions */
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.btn-primary:hover, .nav-btn:hover, #searchBtn:hover {
+    background: var(--secondary-color);
+    color: #333;
+    border-color: var(--secondary-color);
+}
+.btn-secondary:hover {
+    background: #5a6268;
+    color: var(--background-color);
+}
+.btn-edit:hover {
+    background: #ffecb3;
+    color: #333;
+}
+.btn-delete:hover {
+    background: #c82333;
+    color: var(--background-color);
+}
+.nav-btn.active {
+    transition: background 0.3s, color 0.3s;
+}
 .form-actions {
     display: flex;
     gap: 10px;
@@ -220,3 +243,4 @@ footer {
     padding: 40px;
     color: #666;
 }
+
