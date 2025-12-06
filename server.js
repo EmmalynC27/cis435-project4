@@ -12,7 +12,7 @@ app.use(express.static('.')); // Serve static files from root directory
 // API Routes
 app.use('/api', recipeRoutes);
 
-// Server health check
+// Test Server health check
 app.get('/health', (req, res) => res.json({ ok: true }));
 
 // Database and Server Variables

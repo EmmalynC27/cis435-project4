@@ -19,6 +19,8 @@ body {
     margin: 0 auto;
     padding: 20px;
 }
+
+/* Header */
 header {
     background: var(--primary-color);
     color: var(--background-color);
@@ -29,6 +31,7 @@ header h1 {
     font-size: 2rem;
 }
 
+/* Navigation */
 nav {
     background: var(--background-color);
     padding: 15px 0;
@@ -51,6 +54,8 @@ nav .container {
     background: var(--primary-color);
     color: var(--background-color);
 }
+
+/* Search Functions */
 .search-box {
     display: flex;
     gap: 5px;
@@ -70,6 +75,8 @@ nav .container {
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* Main Content */
 .section {
     background: var(--background-color);
     padding: 30px;
@@ -77,6 +84,8 @@ nav .container {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+/* Notifications */
 .notification {
     padding: 15px;
     margin-bottom: 20px;
@@ -91,6 +100,8 @@ nav .container {
     background: #f8d7da;
     color: #721c24;
 }
+
+/* Form Submission */
 .form-group {
     margin-bottom: 20px;
 }
@@ -139,6 +150,8 @@ input, textarea, select {
     gap: 10px;
     margin-top: 20px;
 }
+
+/* Recipe Cards */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -193,6 +206,8 @@ input, textarea, select {
     gap: 10px;
     margin-top: 15px;
 }
+
+/* Footer */
 footer {
     background: #333;
     color: var(--background-color);
